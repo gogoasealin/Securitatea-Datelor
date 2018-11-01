@@ -19,7 +19,6 @@ int main()
 		case 1:
 			printf("Introduceti mesajul decriptat: ");
 			scanf_s(" %[^'\n']s", mesaj, sizeof(mesaj));
-			printf("%s", mesaj);
 			printf("Introduceti cheia de deplasare(pozitiva): ");
 			scanf_s("%d", &key);
 			for (i = 0; i < strlen(mesaj); ++i)

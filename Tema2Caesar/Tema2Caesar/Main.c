@@ -19,7 +19,7 @@ int main()
 			case 1:
 				printf("Introduceti mesajul decriptat: ");
 				scanf_s("%s", &mesaj, sizeof(mesaj));
-				printf("Introduceti cheia de deplasare: ");
+				printf("Introduceti cheia de deplasare(pozitiva): ");
 				scanf_s("%d", &key);
 				for (i = 0; i < strlen(mesaj); ++i)
 				{
@@ -52,45 +52,45 @@ int main()
 					}
 				}
 				break;
-		case 2:
-			printf("Introduceti mesajul criptat: ");
-			scanf_s("%s", &mesaj, sizeof(mesaj));
-			printf("Introduceti cheia de deplasare: ");
-			scanf_s("%d", &key);
-			for (i = 0; i < strlen(mesaj); ++i)
-			{
-				if (isupper(mesaj[i]))
+			case 2:
+				printf("Introduceti mesajul criptat: ");
+				scanf_s("%s", &mesaj, sizeof(mesaj));
+				printf("Introduceti cheia de deplasare: ");
+				scanf_s("%d", &key);
+				for (i = 0; i < strlen(mesaj); ++i)
 				{
-					if (mesaj[i] + key < 'A') {
-						printf("%c", mesaj[i] - key);
-					}
-					else if (mesaj[i] + key > 'A') {
-						printf("%c", (mesaj[i] - key) + 26);
-					}
-				}
-				else {
-					if (isdigit(mesaj[i]))
+					if (isupper(mesaj[i]))
 					{
-						if ((mesaj[i] - key) >= '0')
-						{
+						if (mesaj[i] + key < 'A') {
 							printf("%c", mesaj[i] - key);
 						}
-						else {
-							printf("%c", (mesaj[i] - key) + 10);
+						else if (mesaj[i] + key > 'A') {
+							printf("%c", (mesaj[i] - key) + 26);
 						}
 					}
-					else if (mesaj[i] + key > 'a') {
-						printf("%c", mesaj[i] - key);
-					}
-					else if (mesaj[i] + key < 'a') {
-						printf("%c", (mesaj[i] - key) + 26);
+					else {
+						if (isdigit(mesaj[i]))
+						{
+							if ((mesaj[i] - key) >= '0')
+							{
+								printf("%c", mesaj[i] - key);
+							}
+							else {
+								printf("%c", (mesaj[i] - key) + 10);
+							}
+						}
+						else if (mesaj[i] + key > 'a') {
+							printf("%c", mesaj[i] - key);
+						}
+						else if (mesaj[i] + key < 'a') {
+							printf("%c", (mesaj[i] - key) + 26);
+						}
 					}
 				}
-			}
-			break;
-		default:
-			printf("Va rugam alegeti una dintre optiunile afisate");
-			break;
+				break;
+			default:
+				printf("Va rugam alegeti una dintre optiunile afisate");
+				break;
 		}
 	}
 	return 0;

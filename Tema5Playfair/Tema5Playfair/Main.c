@@ -61,7 +61,6 @@ struct position DetecteazaPozitia(char letter)
 void CreazaTabel(char key[])
 {
 	char* currentAlfabet = strcat(key, alfabet);
-	printf("%s %d\n", currentAlfabet, strlen(currentAlfabet));
 	int i,j,k = 0;
 	for (i = 0; i < strlen(currentAlfabet); ++i)
 	{
@@ -71,7 +70,6 @@ void CreazaTabel(char key[])
 		}
 	}
 	StergeLitereleDuplicate(currentAlfabet);
-	printf("%s %d\n", currentAlfabet, strlen(currentAlfabet));
 
 	for (i = 0; i < 5; ++i)
 	{
@@ -99,8 +97,6 @@ void Criptare(char text[], char key[])
 	int lungimeText = strlen(textCriptat);
 	for (i = 0; i < lungimeText; i+=2)
 	{
-
-		printf("i este %d \n", i);
 		pozitieCurrenta1 = DetecteazaPozitia(textCriptat[i]);
 		if (i + 1 < lungimeText) {
 			pozitieCurrenta2 = DetecteazaPozitia(textCriptat[i + 1]);
@@ -135,6 +131,68 @@ void Criptare(char text[], char key[])
 void Decriptare(char text[], char key[])
 {
 	CreazaTabel(key);
+	int i;
+	struct position pozitieCurrenta1;
+	struct position pozitieCurrenta2;
+
+	char textCriptat[100];
+	strcpy(textCriptat, text);
+	int lungimeText = strlen(textCriptat);
+	for (i = 0; i < lungimeText; i += 2)
+	{
+		pozitieCurrenta1 = DetecteazaPozitia(textCriptat[i]);
+		if (i + 1 < lungimeText) {
+			pozitieCurrenta2 = DetecteazaPozitia(textCriptat[i + 1]);
+		}
+		else {
+			pozitieCurrenta2 = DetecteazaPozitia('x');
+		}
+
+		if (textCriptat[i] == textCriptat[i + 1])
+		{
+			pozitieCurrenta2 = DetecteazaPozitia('x');
+		}
+
+		if (pozitieCurrenta1.x - pozitieCurrenta2.x == 0)
+		{
+			if (pozitieCurrenta1.y - 1 > 0) {
+				textCriptat[i] = tabel[pozitieCurrenta1.x][(pozitieCurrenta1.y - 1) % 5]; // -1%5 = -1
+			}
+			else {
+				textCriptat[i] = tabel[pozitieCurrenta1.x][5 + (pozitieCurrenta1.y - 1)]; // 5 + (- ceva) 
+			}
+			if (pozitieCurrenta2.y - 1 > 0) {
+				textCriptat[i + 1] = tabel[pozitieCurrenta2.x][(pozitieCurrenta2.y - 1) % 5];
+			}
+			else {
+				textCriptat[i + 1] = tabel[pozitieCurrenta2.x][5 + (pozitieCurrenta2.y - 1)];
+			}
+			
+		}
+		else if (pozitieCurrenta1.y - pozitieCurrenta2.y == 0)
+		{
+			if (pozitieCurrenta1.x - 1 >= 0) {
+				textCriptat[i] = tabel[(pozitieCurrenta1.x - 1) % 5][pozitieCurrenta1.y];
+			}
+			else {
+				textCriptat[i] = tabel[5 + (pozitieCurrenta1.x - 1)][pozitieCurrenta1.y];
+			}
+			
+			if (pozitieCurrenta2.x - 1 >= 0)
+			{
+				textCriptat[i + 1] = tabel[(pozitieCurrenta2.x - 1) % 5][pozitieCurrenta2.y];
+			}
+			else {
+				textCriptat[i + 1] = tabel[5 + (pozitieCurrenta2.x - 1) ][pozitieCurrenta2.y];
+			}
+			
+		}
+		else {
+			textCriptat[i] = tabel[pozitieCurrenta1.x][pozitieCurrenta2.y];
+			textCriptat[i + 1] = tabel[pozitieCurrenta2.x][pozitieCurrenta1.y];
+		}
+	}
+	printf("%s ", textCriptat);
 }
 
 
